@@ -7,9 +7,12 @@ struct avl_node {
 
 typedef struct avl_node node;
 
-node * insert_node(node* root, int val);
-int delete_node(node* root, int val);
-int search_node(node* root, int val);
+node * insert(node* root, int val);
+node * delete_node(node* root, int val);
+node * inorder_successor(node* root);
+node * search_node(node* root, int val);
+void display_tree(node* root);
+void display(node* root);
 int height(node* root);
 
 node* new_node(int val);

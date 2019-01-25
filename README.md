@@ -5,7 +5,8 @@
 ### Instructions to run
 
 ```
-    g++ generator.cpp <num_of_vals_required>
+    g++ generator.cpp
+    ./a.out <num_of_val_required>
     cd AVL
     gcc avl.c
     ./a.out <same_num_of_vals>
