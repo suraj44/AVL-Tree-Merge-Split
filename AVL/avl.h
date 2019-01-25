@@ -17,3 +17,5 @@ int balance_factor(node* root);
 
 node* left_rotate(node* root);
 node* right_rotate(node* root);
+
+long long int NUM_VALS;

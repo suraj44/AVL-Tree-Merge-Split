@@ -13,7 +13,7 @@ int main(int argc, char*argv[])
 	num = (long long int)atoll(argv[1]);
 	//printf("%u\n",i);
 	ofstream fout;
-	fout.open("random.txt");
+	fout.open("AVL/data.txt");
 	long long int j;
 	for(j=0;j<num-1;j++)
 	{

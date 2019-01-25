@@ -7,10 +7,6 @@
 #define max(a,b)            (((a) >= (b)) ? (a) : (b))
 #endif
 
-#ifndef NUM_VALS
-#define NUM_VALS 10
-#endif
-
 
 node* new_node(int val){
     node* n = (node*)malloc(sizeof(node));
@@ -94,9 +90,9 @@ node * insert(node *root, int val) {
 
     return root;
 }
-
-int main() {
+int main(int argc, char*argv[]) {
     clock_t start, stop;
+    NUM_VALS = (long long int)atoll(argv[1]);
 
     int *values = (int*)malloc(NUM_VALS * sizeof(int));
 
@@ -104,6 +100,31 @@ int main() {
 
     for(int i=0;i< NUM_VALS; i++) {
         fscanf(f, "%d\n", &values[i]);
+    }
+
+    while(1) {
+        int ch;
+        printf("1. Search for a value, 2. Delete a value, anything else to exit\n");
+        scanf("%d", &ch);
+        switch(ch) {
+            case 1:
+                printf("Enter a value to search for:\n");
+                int search;
+                scanf("%d", &search);
+                // search function
+                break;
+            case 2:
+            printf("Enter a value to delete:\n");
+                int del;
+                scanf("%d", &del);
+                // delete function
+                break;
+
+            default:
+                printf("exiting...");
+                exit(0);
+
+        }
     }
 
 }
