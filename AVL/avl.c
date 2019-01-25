@@ -1,9 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
 #include "avl.h"
 
 #ifndef max
 #define max(a,b)            (((a) >= (b)) ? (a) : (b))
+#endif
+
+#ifndef NUM_VALS
+#define NUM_VALS 10
 #endif
 
 
@@ -88,7 +93,18 @@ node * insert(node *root, int val) {
     }
 
     return root;
+}
 
+int main() {
+    clock_t start, stop;
+
+    int *values = (int*)malloc(NUM_VALS * sizeof(int));
+
+    FILE *f = fopen("data.txt", "r");
+
+    for(int i=0;i< NUM_VALS; i++) {
+        fscanf(f, "%d\n", &values[i]);
+    }
 
 }
 
