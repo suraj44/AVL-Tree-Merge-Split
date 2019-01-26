@@ -166,18 +166,16 @@ node* delete_node(node * root, int val){
     return root;
 }
 
-node* search_node(node * root, int val){
-    if(root == NULL){
+node * search_node(node * root, int val){
+    if(root == NULL || root->val == val){
         return root;
     }
-    else if (val < root->val){
+
+    else if (val < root->val){ 
         return search_node(root->left, val);
     }
     else if (val > root->val){
         return search_node(root->right, val);
-    }
-    else if(val == root->val){ 
-        return root;       
     }
 }
 
@@ -225,7 +223,7 @@ int main(int argc, char*argv[]) {
                 if(key == NULL){
                     printf("The value is not found\n");
                 }
-                else printf("The value is not found\n");
+                else printf("The value is found\n");
                 break;
             case 2:
             printf("Enter a value to delete:\n");
