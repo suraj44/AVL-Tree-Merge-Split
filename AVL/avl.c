@@ -103,14 +103,15 @@ node* delete_node(node * root, int val){
     if (root==NULL){
         return root;
     }
-    else if(val < root->val){
-        return delete_node(root->left, val);
+    if(val < root->val){
+        root->left = delete_node(root->left, val);
     }
     else if (val > root->val){
-        return delete_node(root->right, val);
+        root->right = delete_node(root->right, val);
     }
     // if found
     else {
+        // printf("%p %p %d\n",root->left, root->right, root->val);
         // zero or one child
         if((root->left==NULL || root->right == NULL)){
             node * temp = root->left ? root->left: root->right;
@@ -123,12 +124,13 @@ node* delete_node(node * root, int val){
             else{ // One child case
                 *root = *temp;
             }
-
+            // printf("Value found\n");
             free(temp);
         }
         // two children
         else {
             node * temp = inorder_successor(root);
+            // printf("succ : %d\n",temp->val);
             root->val = temp->val;
             root->right  = delete_node(root->right, temp->val);
         }
