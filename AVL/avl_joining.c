@@ -4,8 +4,8 @@
 
 int main(int argc, char const *argv[])
 {
-    int right[16] = {3,5,2,7,4,21,23,25,8,14,15,16,17,18,19,20};
-    int left[5]= {56,34,45,78,91};
+    int left[5] = {3,5,2,7,4};
+    int right[11]= {56,34,45,78,91, 21,23,25, 79, 90 , 33};
 
     node *T1 = NULL, *T2= NULL;
     
@@ -14,15 +14,16 @@ int main(int argc, char const *argv[])
         T1 = insert(T1,left[i]);
     }
     
-    for(size_t i = 0; i < 16; i++)
+    for(size_t i = 0; i < 11; i++)
     {
         T2 = insert(T2, right[i]);
     }
     
+    
     int h1 = T1->height;
     int h2 = T2->height;
 
-    if(h1 < h2) {
+    if(h1 > h2) {
         node * temp = T2;
         while(temp->left) temp=temp->left;
         int x = temp->val;
