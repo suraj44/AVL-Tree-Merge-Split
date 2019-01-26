@@ -62,9 +62,9 @@ node * insert(node *root, int val) {
         return new_node(val);
     int currVal = root->val;
     if(val < currVal) {
-        insert(root->left, val);
+        root->left = insert(root->left, val);
     } else if ( val > currVal) {
-        insert(root->right, val);
+        root->right = insert(root->right, val);
     } else {
         return root;
     }
@@ -73,10 +73,10 @@ node * insert(node *root, int val) {
 
     int bf = balance_factor(root);
     if(bf > 1 && val < root->left->val) {
-        right_rotate(root);
+        return right_rotate(root);
     }
     if (bf < -1 && val > root->right->val ) {
-        left_rotate(root);
+        return left_rotate(root);
     }
     if(bf > 1 && val > root->left->val) {
         root->left = left_rotate(root->left);
@@ -84,7 +84,7 @@ node * insert(node *root, int val) {
     }
     if (bf < -1 && val < root->right->val) {
         root->right = right_rotate(root->right);
-        left_rotate(root);
+        return left_rotate(root);
     }
 
     return root;
