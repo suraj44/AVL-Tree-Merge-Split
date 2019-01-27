@@ -4,12 +4,12 @@
 
 int main(int argc, char const *argv[])
 {
-    int left[5] = {3,5,2,7,4};
+    int left[5] = {3,5,2};
     int right[11]= {56,34,45,78,91, 21,23,25, 79, 90 , 33};
 
     node *T1 = NULL, *T2= NULL;
     
-    for(size_t i = 0; i < 5; i++)
+    for(size_t i = 0; i < 3; i++)
     {
         T1 = insert(T1,left[i]);
     }
@@ -44,8 +44,13 @@ int main(int argc, char const *argv[])
         new_tree->left = v;
         new_tree->right= T2;
         new_tree->height = 1 + max(height(new_tree->left),height(new_tree->right));
+
         
         u->right = new_tree;
+
+        T1 = insert(T1, v->val);
+
+        printf("HEIGHT: %d\n", height(u->left)-height(u->right));
         
         printf("The resulting tree printed in inorder fashion :\n");
         display(T1);
@@ -70,8 +75,14 @@ int main(int argc, char const *argv[])
         new_tree->right = v;
         new_tree->left= T1;
         new_tree->height = 1 + max(height(new_tree->left),height(new_tree->right));
+
+        
         
         u->left = new_tree;
+
+        T2 = insert(T2, v->val);
+
+        printf("HEIGHT: %d\n", height(u->left)-height(u->right));
         
         printf("The resulting tree printed in inorder fashion :\n");
         display(T2);
