@@ -7,6 +7,12 @@
 #define max(a,b)            (((a) >= (b)) ? (a) : (b))
 #endif
 
+void print_elapsed(clock_t start, clock_t stop)
+{
+  double elapsed = ((double) (stop - start)) / CLOCKS_PER_SEC;
+  printf("Elapsed time: %fs\n", elapsed);
+}
+
 
 node* new_node(int val){
     node* n = (node*)malloc(sizeof(node));
@@ -221,11 +227,14 @@ int main(int argc, char*argv[]) {
                 printf("Enter a value to search for:\n");
                 int search;
                 scanf("%d", &search);
+                start = clock();
                 node * key = search_node(root, search);
+                stop = clock();
                 if(key == NULL){
                     printf("The value is not found\n");
                 }
                 else printf("The value is found\n");
+                print_elapsed(start,stop);
                 break;
             case 2:
             printf("Enter a value to delete:\n");

@@ -65,7 +65,7 @@ int main(int argc, char const *argv[])
             u = v;
             v = v->left;
         }
-
+ 
         node* new_tree = new_node(x);
         new_tree->right = v;
         new_tree->left= T1;

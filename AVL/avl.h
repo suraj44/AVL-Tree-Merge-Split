@@ -21,4 +21,6 @@ int balance_factor(node* root);
 node* left_rotate(node* root);
 node* right_rotate(node* root);
 
+void print_elapsed(clock_t start, clock_t stop);
+
 long long int NUM_VALS;
