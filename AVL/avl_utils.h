@@ -8,6 +8,25 @@
 #endif
 
 
+node* split(node* t, int k) {
+    if (t==NULL) {
+        return new_node(-1);
+    }
+
+    if(t->val == k) {
+        node* temp = new_node(0);
+        temp->left=t->left;
+        temp->right=t->right;
+
+        temp->height = max(height(temp->left), height(temp->right)) +1;
+        return temp;    
+    }
+    if(k < t->val) {
+        node* temp = split(t->left, k);
+    }
+}
+
+
 node* new_node(int val){
     node* n = (node*)malloc(sizeof(node));
     n->val= val;
