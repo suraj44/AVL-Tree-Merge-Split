@@ -8,6 +8,88 @@
 #endif
 
 
+node* joinLeft(node* T1, node* T2) {
+    if(T1==NULL)
+        return T2;
+    if(T2==NULL)
+        return T1;
+    int h1 = height(T1);
+    int h2 = height(T2);
+    node * temp = T2;
+    while(temp->left) temp=temp->left;
+    int x = temp->val;
+
+    T2 = delete_node(T2, x);
+    int h = height(T2);
+    
+    node *v = T1, *u=T1;
+    int h_prime = h1;
+    while (h_prime >= h+1){
+        if(balance_factor(v)==-1) h_prime -= 2;
+        else h_prime -=1;
+        u = v;
+        v = v->right;
+    }
+    
+    node* new_tree = new_node(x);
+    new_tree->left = v;
+    new_tree->right= T2;
+    new_tree->height = 1 + max(height(new_tree->left),height(new_tree->right));
+
+    
+    u->right = new_tree;
+
+    T1 = insert(T1, v->val);
+}
+
+node* joinRight(node* T1, node* T2) {
+
+    if(T1==NULL)
+        return T2;
+    if(T2==NULL)
+        return T1;
+    int h1 = height(T1);
+    int h2 = height(T2);
+
+    node * temp = T1;
+        while(temp->right) temp=temp->right;
+        int x = temp->val;
+
+        T1 = delete_node(T1, x);
+        int h = height(T1);
+
+        node *v = T2, *u=T2;
+        int h_prime = h2;
+        while (h_prime >= h+1){
+            if(balance_factor(v)==1) h_prime -= 2;
+            else h_prime -=1;
+            u = v;
+            v = v->left;
+        }
+ 
+        node* new_tree = new_node(x);
+        new_tree->right = v;
+        new_tree->left= T1;
+        new_tree->height = 1 + max(height(new_tree->left),height(new_tree->right));
+
+        
+        
+        u->left = new_tree;
+
+        T2 = insert(T2, v->val);
+}
+
+
+node* join(node* T1, node* T2){
+    if(height(T1) > height(T2)) {
+        joinLeft(T1, T2);
+    } else {
+        joinRight(T1,T2);
+    }
+}
+
+
+
 node* split(node* t, int k) {
     if (t==NULL) {
         return new_node(-1);
@@ -23,6 +105,15 @@ node* split(node* t, int k) {
     }
     if(k < t->val) {
         node* temp = split(t->left, k);
+        temp->right = join(temp->right, t->right);
+        temp->right = insert(temp->right, t->val);
+        return temp;
+    }
+    if(k > t->val) {
+        node* temp = split(t->right,k);
+        temp->left = join(t->left, temp->left);
+        temp->left = insert(temp->left, t->val);
+        return temp;
     }
 }
 
