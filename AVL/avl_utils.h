@@ -8,23 +8,27 @@
 #endif
 
 
+node* join(node* T1, node* T2){
+    if(height(T1) > height(T2)) {
+        joinLeft(T1, T2);
+    } else {
+        joinRight(T1,T2);
+    }
+}
+
 node* joinLeft(node* T1, node* T2) {
-    if(T1==NULL)
-        return T2;
-    if(T2==NULL)
-        return T1;
-    int h1 = height(T1);
-    int h2 = height(T2);
+    int h1 = T1->height;
+    int h2 = T2->height;
     node * temp = T2;
     while(temp->left) temp=temp->left;
     int x = temp->val;
 
     T2 = delete_node(T2, x);
-    int h = height(T2);
+    int h = T2->height;
     
     node *v = T1, *u=T1;
     int h_prime = h1;
-    while (h_prime > h+1){
+    while (h_prime >= h+1){
         if(balance_factor(v)==-1) h_prime -= 2;
         else h_prime -=1;
         u = v;
@@ -40,27 +44,23 @@ node* joinLeft(node* T1, node* T2) {
     u->right = new_tree;
 
     T1 = insert(T1, v->val);
+    return T1;
 }
 
 node* joinRight(node* T1, node* T2) {
-
-    if(T1==NULL)
-        return T2;
-    if(T2==NULL)
-        return T1;
-    int h1 = height(T1);
-    int h2 = height(T2);
+    int h1 = T1->height;
+    int h2 = T2->height;
 
     node * temp = T1;
         while(temp->right) temp=temp->right;
         int x = temp->val;
 
         T1 = delete_node(T1, x);
-        int h = height(T1);
+        int h = T1->height;
 
         node *v = T2, *u=T2;
         int h_prime = h2;
-        while (h_prime > h+1){
+        while (h_prime >= h+1){
             if(balance_factor(v)==1) h_prime -= 2;
             else h_prime -=1;
             u = v;
@@ -77,92 +77,11 @@ node* joinRight(node* T1, node* T2) {
         u->left = new_tree;
 
         T2 = insert(T2, v->val);
+        return T2;
 }
 
 
-node* join(node* T1, node* T2){
-    if(height(T1) > height(T2)) {
-        joinLeft(T1, T2);
-    } else {
-        joinRight(T1,T2);
-    }
-}
-
-
-
-
-// node* split(node* t, int k){
-//     t= insert(t,k);
-//     return split_tree(t,k);
-// }
-
-node* Node(node* TL,int k, node* TR){
-    node* temp = new_node(k);
-    temp->left = TL;
-    temp->right= TR;
-    temp->height=max(height(temp->left),height(temp->right))+1;
-    return temp;
-}
-
-
-node* joinRightAVL(node* TL,int k,node* TR){
-    node* left = TL->left;
-    node* right= TL->right;
-    int m = TL->val;
-    if (height(right)<height(TR)+1)
-    {
-        node* T_prime = Node(right,k,TR);
-        
-        if(height(T_prime)<=height(left)+1){
-            return Node(left,m,T_prime);
-        }
-        else return left_rotate(Node(left,m,right_rotate(T_prime)));
-        
-    }
-    else {
-            node* T_prime = joinRightAVL(right,k,TR);
-            node* T = Node(left,m,T_prime);
-            if(height(TL)>height(TR)+1) return T;
-            else return left_rotate(T);
-        }
-}
-
-node* joinLeftAVL(node* TL,int k,node* TR){
-    node* left = TR->left;
-    node* right= TR->right;
-    int m = TR->val;
-    if (height(left)<height(TL)+1)
-    {
-        node* T_prime = Node(TL,k,left);
-        
-        if(height(T_prime)<=height(right)+1){
-            return Node(T_prime,m,right);
-        }
-        else return right_rotate(Node(left_rotate(T_prime),m,right));
-        
-    }
-    else {
-            node* T_prime = joinLeftAVL(TL,k,left);
-            node* T = Node(T_prime,m,right);
-            if(height(TR)>height(TL)+1) return T;
-            else return right_rotate(T);
-        }
-}
-
-
-
-node * joinAVL(node* TL, int k, node*TR){
-    if(height(TL)>height(TR)+1) return joinRightAVL(TL,k,TR);
-    if(height(TR)>height(TL)+1) return joinLeftAVL(TL,k,TR);
-    node* temp = new_node(k);
-    temp->left = TL;
-    temp->right= TR;
-    temp->height = max(height(TL),height(TR)) + 1;
-    return temp;
-}
-
-
-node* split_tree(node* t, int k) {
+node* split(node* t, int k) {
     if (t==NULL) {
         return new_node(-1);
     }
@@ -176,45 +95,19 @@ node* split_tree(node* t, int k) {
         return temp;    
     }
     if(k < t->val) {
-        node* temp = split_tree(t->left, k);
+        node* temp = split(t->left, k);
         temp->right = join(temp->right, t->right);
         temp->right = insert(temp->right, t->val);
         return temp;
     }
     if(k > t->val) {
-        node* temp = split_tree(t->right,k);
+        node* temp = split(t->right,k);
         temp->left = join(t->left, temp->left);
         temp->left = insert(temp->left, t->val);
         return temp;
     }
 }
 
-node* split_2(node* t, int k) {
-    if (t==NULL) {
-        return new_node(-1);
-    }
-
-    if(t->val == k) {
-        node* temp = new_node(0);
-        temp->left=t->left;
-        temp->right=t->right;
-
-        temp->height = max(height(temp->left), height(temp->right)) +1;
-        return temp;    
-    }
-    if(k < t->val) {
-        node* temp = split_2(t->left, k);
-        // temp->right = joinAVL(temp->right,t->val, t->right);
-        // temp->right = insert(temp->right, t->val);
-        return Node(temp->left,temp->val,joinAVL(temp->right,t->val,t->right));
-    }
-    if(k > t->val) {
-        node* temp = split_2(t->right,k);
-        // temp->left = joinAVL(t->left, temp->left);
-        // temp->left = insert(temp->left, t->val);
-        return Node(joinAVL(t->left,t->val,temp->left),temp->val,t->right);
-    }
-}
 
 node* new_node(int val){
     node* n = (node*)malloc(sizeof(node));
@@ -280,17 +173,17 @@ node * insert(node *root, int val) {
     root->height = max(height(root->right), height(root->left)) + 1;
 
     int bf = balance_factor(root);
-    if(root->left  && bf > 1 && val < root->left->val) {
+    if(bf > 1 && val < root->left->val) {
         return right_rotate(root);
     }
-    if (root->right && bf < -1 && val > root->right->val ) {
+    if (bf < -1 && val > root->right->val ) {
         return left_rotate(root);
     }
-    if(root->left && bf > 1 && val > root->left->val) {
+    if(bf > 1 && val > root->left->val) {
         root->left = left_rotate(root->left);
         return right_rotate(root);
     }
-    if (root->right  && bf < -1 && val < root->right->val) {
+    if (bf < -1 && val < root->right->val) {
         root->right = right_rotate(root->right);
         return left_rotate(root);
     }

@@ -14,14 +14,11 @@ node * search_node(node* root, int val);
 void display_tree(node* root);
 void display(node* root);
 int height(node* root);
-node* joinRight(node* T1, node* T2);
-node* joinLeft(node* T1, node* T2);
 node* join(node* t1, node* t2);
-node *joinAVL(node* TL, int m, node*TR);
-node *joinLeftAVL(node* TL, int m, node*TR);
-node *joinRightAVL(node* TL, int m, node*TR);
+node* joinLeft(node* t1, node* t2);
+node* joinRight(node* t1, node* t2);
 node* split(node* t1, int val);
-node* split_tree(node* t, int k);
+
 
 node* new_node(int val);
 int balance_factor(node* root);
