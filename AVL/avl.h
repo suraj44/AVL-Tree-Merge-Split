@@ -16,6 +16,7 @@ void display(node* root);
 int height(node* root);
 node* join(node* t1, node* t2);
 node* split(node* t1, int val);
+node* split_tree(node* t1, int val);
 
 node* new_node(int val);
 int balance_factor(node* root);

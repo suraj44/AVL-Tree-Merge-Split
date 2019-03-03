@@ -1,20 +1,20 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "avl_utils.h"
+#include "avl_utils.c"
 
 int main(int argc, char const *argv[])
 {
-    int left[5] = {3,5,2};
-    int right[11]= {56,34,45,78,91, 21,23,25, 79, 90 , 33};
+    int left[5] = {22,10,25,20,15};
+    int right[3]= {80,35,30};
 
     node *T1 = NULL, *T2= NULL;
     
-    for(size_t i = 0; i < 3; i++)
+    for(size_t i = 0; i < 5; i++)
     {
         T1 = insert(T1,left[i]);
     }
     
-    for(size_t i = 0; i < 11; i++)
+    for(size_t i = 0; i < 3; i++)
     {
         T2 = insert(T2, right[i]);
     }
@@ -22,6 +22,11 @@ int main(int argc, char const *argv[])
     
     int h1 = T1->height;
     int h2 = T2->height;
+
+    printf("h1: %d, h2: %d\n", h1, h2);
+    display(T1);
+    display(T2);
+    printf("%d %d %d\n", T2->val, height(T2->left), height(T2->right));
 
     if(h1 > h2) {
         node * temp = T2;
