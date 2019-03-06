@@ -20,11 +20,9 @@ node* joinLeft(node* T1, node* T2) {
     node * temp = T2;
     while(temp->left) temp=temp->left;
     int x = temp->val;
-    printf("x %d\n", x);
 
     T2 = delete_node(T2, x);
     int h = height(T2);
-    printf("del height %d\n", h);
     
     node *v = T1, *u=T1;
     int h_prime = h1;

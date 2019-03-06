@@ -212,12 +212,12 @@ int main(int argc, char*argv[]) {
 
     node * root = NULL;
     printf("Adding values to tree..\n");
-    // for(int i=0;i< NUM_VALS; i++) {
-    //     fscanf(f, "%d\n", &values[i]);
-    //     printf("%d ",values[i]);
-    //     root = insert(root,values[i]);
-    // }
-    // printf("\n");
+    for(int i=0;i< NUM_VALS; i++) {
+        fscanf(f, "%d\n", &values[i]);
+        // printf("%d ",values[i]);
+        root = insert(root,values[i]);
+    }
+    printf("\n");
 
     int index = rand() % NUM_VALS;
 
