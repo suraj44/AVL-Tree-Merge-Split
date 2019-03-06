@@ -39,7 +39,15 @@ int main(int argc, char const *argv[])
 
     left.merge(right);
 
-    left.preorder();
+    // left.preorder();
+    
+    if(left.isRBTreeBlackHeightValid()){
+        printf("\nThe merged tree is a valid Red Black Tree\n");
+    }
+
+    else {
+        printf("\nThe merged tree is a NOT valid Red Black Tree\n");
+    }
     // printf("The joined tree is an AVL tree.\n");
     return 0;
 }

@@ -8,29 +8,29 @@ using namespace std;
 Node::Node(int data) {
     this->data = data;
     color = RED;
-    left = right = parent = nullptr;
+    left = right = parent = NULL;
 }
 
 RBTree::RBTree() {
-    root = nullptr;
+    root = NULL;
 }
 
 int RBTree::getColor(Node *&node) {
-    if (node == nullptr)
+    if (node == NULL)
         return BLACK;
 
     return node->color;
 }
 
 void RBTree::setColor(Node *&node, int color) {
-    if (node == nullptr)
+    if (node == NULL)
         return;
 
     node->color = color;
 }
 
 Node* RBTree::insertBST(Node *&root, Node *&ptr) {
-    if (root == nullptr)
+    if (root == NULL)
         return ptr;
 
     if (ptr->data < root->data) {
@@ -54,12 +54,12 @@ void RBTree::rotateLeft(Node *&ptr) {
     Node *right_child = ptr->right;
     ptr->right = right_child->left;
 
-    if (ptr->right != nullptr)
+    if (ptr->right != NULL)
         ptr->right->parent = ptr;
 
     right_child->parent = ptr->parent;
 
-    if (ptr->parent == nullptr)
+    if (ptr->parent == NULL)
         root = right_child;
     else if (ptr == ptr->parent->left)
         ptr->parent->left = right_child;
@@ -74,12 +74,12 @@ void RBTree::rotateRight(Node *&ptr) {
     Node *left_child = ptr->left;
     ptr->left = left_child->right;
 
-    if (ptr->left != nullptr)
+    if (ptr->left != NULL)
         ptr->left->parent = ptr;
 
     left_child->parent = ptr->parent;
 
-    if (ptr->parent == nullptr)
+    if (ptr->parent == NULL)
         root = left_child;
     else if (ptr == ptr->parent->left)
         ptr->parent->left = left_child;
@@ -91,8 +91,8 @@ void RBTree::rotateRight(Node *&ptr) {
 }
 
 void RBTree::fixInsertRBTree(Node *&ptr) {
-    Node *parent = nullptr;
-    Node *grandparent = nullptr;
+    Node *parent = NULL;
+    Node *grandparent = NULL;
     while (ptr != root && getColor(ptr) == RED && getColor(ptr->parent) == RED) {
         parent = ptr->parent;
         grandparent = parent->parent;
@@ -136,33 +136,33 @@ void RBTree::fixInsertRBTree(Node *&ptr) {
 }
 
 void RBTree::fixDeleteRBTree(Node *&node) {
-    if (node == nullptr)
+    if (node == NULL)
         return;
 
     if (node == root) {
-        root = nullptr;
+        root = NULL;
         return;
     }
 
     if (getColor(node) == RED || getColor(node->left) == RED || getColor(node->right) == RED) {
-        Node *child = node->left != nullptr ? node->left : node->right;
+        Node *child = node->left != NULL ? node->left : node->right;
 
         if (node == node->parent->left) {
             node->parent->left = child;
-            if (child != nullptr)
+            if (child != NULL)
                 child->parent = node->parent;
             setColor(child, BLACK);
             delete (node);
         } else {
             node->parent->right = child;
-            if (child != nullptr)
+            if (child != NULL)
                 child->parent = node->parent;
             setColor(child, BLACK);
             delete (node);
         }
     } else {
-        Node *sibling = nullptr;
-        Node *parent = nullptr;
+        Node *sibling = NULL;
+        Node *parent = NULL;
         Node *ptr = node;
         setColor(ptr, DOUBLE_BLACK);
         while (ptr != root && getColor(ptr) == DOUBLE_BLACK) {
@@ -226,16 +226,16 @@ void RBTree::fixDeleteRBTree(Node *&node) {
             }
         }
         if (node == node->parent->left)
-            node->parent->left = nullptr;
+            node->parent->left = NULL;
         else
-            node->parent->right = nullptr;
+            node->parent->right = NULL;
         delete(node);
         setColor(root, BLACK);
     }
 }
 
 Node* RBTree::deleteBST(Node *&root, int data) {
-    if (root == nullptr)
+    if (root == NULL)
         return root;
 
     if (data < root->data)
@@ -244,7 +244,7 @@ Node* RBTree::deleteBST(Node *&root, int data) {
     if (data > root->data)
         return deleteBST(root->right, data);
 
-    if (root->left == nullptr || root->right == nullptr)
+    if (root->left == NULL || root->right == NULL)
         return root;
 
     Node *temp = minValueNode(root->right);
@@ -258,7 +258,7 @@ void RBTree::deleteValue(int data) {
 }
 
 void RBTree::inorderBST(Node *&ptr) {
-    if (ptr == nullptr)
+    if (ptr == NULL)
         return;
 
     inorderBST(ptr->left);
@@ -271,7 +271,7 @@ void RBTree::inorder() {
 }
 
 void RBTree::preorderBST(Node *&ptr) {
-    if (ptr == nullptr)
+    if (ptr == NULL)
         return;
 
     cout << ptr->data << " " << ptr->color << endl;
@@ -288,7 +288,7 @@ Node *RBTree::minValueNode(Node *&node) {
 
     Node *ptr = node;
 
-    while (ptr->left != nullptr)
+    while (ptr->left != NULL)
         ptr = ptr->left;
 
     return ptr;
@@ -297,7 +297,7 @@ Node *RBTree::minValueNode(Node *&node) {
 Node* RBTree::maxValueNode(Node *&node) {
     Node *ptr = node;
 
-    while (ptr->right != nullptr)
+    while (ptr->right != NULL)
         ptr = ptr->right;
 
     return ptr;
@@ -305,7 +305,7 @@ Node* RBTree::maxValueNode(Node *&node) {
 
 int RBTree::getBlackHeight(Node *node) {
     int blackheight = 0;
-    while (node != nullptr) {
+    while (node != NULL) {
         if (getColor(node) == BLACK)
             blackheight++;
         node = node->left;
@@ -369,15 +369,15 @@ void RBTree::merge(RBTree rbTree2) {
             ptr = ptr->left;
         }
         Node *ptr_parent;
-        if (ptr == nullptr)
+        if (ptr == NULL)
             ptr_parent = temp_ptr;
         else
             ptr_parent = ptr->parent;
         c->left = root1;
-        if (root1 != nullptr)
+        if (root1 != NULL)
             root1->parent = c;
         c->right = ptr;
-        if (ptr != nullptr)
+        if (ptr != NULL)
             ptr->parent = c;
         ptr_parent->left = c;
         c->parent = ptr_parent;
@@ -412,4 +412,26 @@ void RBTree::merge(RBTree rbTree2) {
         root = root1;
     }
     return;
+}
+
+int RBTree::computeBlackHeight(Node* currNode) {
+    // For an empty subtree the answer is obvious
+    if (currNode == NULL)
+        return 0; 
+    // Computes the height for the left and right child recursively
+    int leftHeight = computeBlackHeight(currNode->left);
+    int rightHeight = computeBlackHeight(currNode->right);
+    int add = currNode->color == BLACK ? 1 : 0;
+    // The current subtree is not a red black tree if and only if
+    // one or more of current node's children is a root of an invalid tree
+    // or they contain different number of black nodes on a path to a null node.
+    if (leftHeight == -1 || rightHeight == -1 || leftHeight != rightHeight)
+        return -1; 
+    else
+        return leftHeight + add;
+}
+
+bool RBTree::isRBTreeBlackHeightValid()
+{
+    return computeBlackHeight(root) != -1;
 }

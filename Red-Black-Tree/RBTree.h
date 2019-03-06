@@ -41,6 +41,8 @@ class RBTree
         void merge(RBTree);
         void inorder();
         void preorder();
+        int computeBlackHeight(Node*);
+        bool isRBTreeBlackHeightValid();
 };
 
 
