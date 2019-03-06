@@ -23,7 +23,7 @@ int main(int argc, char const *argv[])
 
     RBTree left, right;
     int index = rand() % NUM_VALS;
-    printf("Adding values to tree..\n");
+    printf("----------Adding values to tree------------\n");
     for(int i=0;i< index; i++) {
         fscanf(f, "%d\n", &values[i]);
         // printf("%d ",values[i]);
@@ -35,8 +35,9 @@ int main(int argc, char const *argv[])
         right.insertValue(values[i]);
     }
     printf("\n");
-    printf("------------Inserted values to trees----------\n");
+    printf("---------Inserted values to trees----------\n");
 
+    printf("\n--------Performing merging of trees--------\n");
     left.merge(right);
 
     // left.preorder();

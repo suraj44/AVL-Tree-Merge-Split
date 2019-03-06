@@ -281,7 +281,7 @@ void RBTree::preorderBST(Node *&ptr) {
 
 void RBTree::preorder() {
     preorderBST(root);
-    cout << "-------" << endl;
+    cout << "<END>" << endl;
 }
 
 Node *RBTree::minValueNode(Node *&node) {
