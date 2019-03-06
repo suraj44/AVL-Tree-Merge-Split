@@ -19,7 +19,7 @@ node* new_node(int val){
     n->val= val;
     n->right = NULL;
     n->left = NULL;
-    n->height = 0;
+    n->height = 1;
     return n;
 }
 
@@ -202,6 +202,7 @@ void display(node * root){
 }
 
 int main(int argc, char*argv[]) {
+    srand(time(NULL));
     clock_t start, stop;
     NUM_VALS = (long long int)atoll(argv[1]);
 
@@ -210,48 +211,59 @@ int main(int argc, char*argv[]) {
     FILE *f = fopen("data.txt", "r");
 
     node * root = NULL;
-    printf("Adding ");
+    printf("Adding values to tree..\n");
     for(int i=0;i< NUM_VALS; i++) {
         fscanf(f, "%d\n", &values[i]);
-        printf("%d ",values[i]);
+        // printf("%d ",values[i]);
         root = insert(root,values[i]);
     }
     printf("\n");
 
-    while(1) {
-        int ch;
-        printf("1. Search for a value, 2. Delete a value, 3. Display anything else to exit\n");
-        scanf("%d", &ch);
-        switch(ch) {
-            case 1:
-                printf("Enter a value to search for:\n");
-                int search;
-                scanf("%d", &search);
-                start = clock();
-                node * key = search_node(root, search);
-                stop = clock();
-                if(key == NULL){
-                    printf("The value is not found\n");
-                }
-                else printf("The value is found\n");
-                print_elapsed(start,stop);
-                break;
-            case 2:
-            printf("Enter a value to delete:\n");
-                int del;
-                scanf("%d", &del);
-                root = delete_node(root, del);
-                break;
+    int index = rand() % NUM_VALS;
 
-            case 3 :
-            display(root);
-            break;
-            default:
-                printf("exiting...\n");
-                exit(0);
+    start = clock();
+    node * key = search_node(root, values[index]);
+    stop = clock();
+    print_elapsed(start, stop);
 
-        }
-    }
+
+
+
+
+    // while(1) {
+    //     int ch;
+    //     printf("1. Search for a value, 2. Delete a value, 3. Display anything else to exit\n");
+    //     scanf("%d", &ch);
+    //     switch(ch) {
+    //         case 1:
+    //             printf("Enter a value to search for:\n");
+    //             int search;
+    //             scanf("%d", &search);
+    //             start = clock();
+    //             node * key = search_node(root, search);
+    //             stop = clock();
+    //             if(key == NULL){
+    //                 printf("The value is not found\n");
+    //             }
+    //             else printf("The value is found\n");
+    //             print_elapsed(start,stop);
+    //             break;
+    //         case 2:
+    //         printf("Enter a value to delete:\n");
+    //             int del;
+    //             scanf("%d", &del);
+    //             root = delete_node(root, del);
+    //             break;
+
+    //         case 3 :
+    //         display(root);
+    //         break;
+    //         default:
+    //             printf("exiting...\n");
+    //             exit(0);
+
+    //     }
+    // }
 
 }
 
