@@ -10,7 +10,11 @@ int main(int argc, char const *argv[])
     srand(time(NULL));
     clock_t start, stop;
     cout<<"\n\nNote: The number of entries should not exceed the entries in the file\n\n";
-    
+    if(argc!=2){
+		cout<<"Expected format: ./<exe_file> <number of entries>"<<endl;
+		cout<<"Please reenter properly\n";
+		exit(0);
+	}
     NUM_VALS = (long long int)atoll(argv[1]);
 
     int *values = (int*)malloc(NUM_VALS * sizeof(int));
