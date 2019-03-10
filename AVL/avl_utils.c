@@ -109,13 +109,13 @@ node* joinRight(node* T1, node* T2) {
 }
 
 
-node* join(node* T1, node* T2){
-    if(height(T1) > height(T2)) {
-        return joinLeft(T1, T2);
-    } else {
-        return joinRight(T1,T2);
-    }
-}
+// node* join(node* T1, node* T2){
+//     if(height(T1) > height(T2)) {
+//         return joinLeft(T1, T2);
+//     } else {
+//         return joinRight(T1,T2);
+//     }
+// }
 
 
 

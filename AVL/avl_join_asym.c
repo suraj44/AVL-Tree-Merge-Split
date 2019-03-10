@@ -8,6 +8,7 @@ void check_bf(node* root) {
         return;
     }
     check_bf(root->left);
+    printf("%d ", balance_factor(root));
     if(balance_factor(root) > 1 || balance_factor(root) < -1) {
         printf("There is an unbalanced node in the tree!\n");
         exit(1);
@@ -43,8 +44,10 @@ int main(int argc, char const *argv[])
     printf("\n");
 
     node * joined = join(left,right);
+    printf("%d %d\n", height(left), height(right));
 
     check_bf(joined);
     printf("The joined tree is an AVL tree.\n");
+    printf("%d\n", height(joined));
     return 0;
 }

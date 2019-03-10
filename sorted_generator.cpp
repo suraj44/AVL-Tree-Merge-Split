@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
 	num = (long long int)atoll(argv[1]);
 	for(i=0;i<num;i++)
 	{
-		v.push_back(rand() % 65536);
+		v.push_back(rand() % (num*10));
 	}
 	sort(v.begin(),v.end());
 	ofstream fout;

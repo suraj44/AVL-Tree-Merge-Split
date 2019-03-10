@@ -4,6 +4,11 @@
 #include "RBTree.cpp"
 
 long long int NUM_VALS;
+void print_elapsed(clock_t start, clock_t stop)
+{
+  double elapsed = ((double) (stop - start)) / CLOCKS_PER_SEC;
+  printf("Elapsed time: %fs\n", elapsed);
+}
 
 int main(int argc, char const *argv[])
 {
@@ -23,12 +28,15 @@ int main(int argc, char const *argv[])
 
     RBTree left, right;
     int index = rand() % NUM_VALS;
+    start = clock();
     printf("----------Adding values to tree------------\n");
     for(int i=0;i< index; i++) {
         fscanf(f, "%d\n", &values[i]);
         // printf("%d ",values[i]);
         left.insertValue(values[i]);
     }
+    stop = clock();
+    print_elapsed(start, stop);
 
     for(int i= index ;i< NUM_VALS; i++) {
         fscanf(f, "%d\n", &values[i]);
@@ -38,17 +46,22 @@ int main(int argc, char const *argv[])
     printf("---------Inserted values to trees----------\n");
 
     printf("\n--------Performing merging of trees--------\n");
+    start = clock();
     left.merge(right);
+    stop = clock();
+    print_elapsed(start, stop);
+
+    left.insertValue(values[index]);
 
     // left.preorder();
     
-    if(left.isRBTreeBlackHeightValid()){
-        printf("\nThe merged tree is a valid Red Black Tree\n");
-    }
+    // if(left.isRBTreeBlackHeightValid()){
+    //     printf("\nThe merged tree is a valid Red Black Tree\n");
+    // }
 
-    else {
-        printf("\nThe merged tree is a NOT valid Red Black Tree\n");
-    }
+    // else {
+    //     printf("\nThe merged tree is a NOT valid Red Black Tree\n");
+    // }
     // printf("The joined tree is an AVL tree.\n");
     return 0;
 }
